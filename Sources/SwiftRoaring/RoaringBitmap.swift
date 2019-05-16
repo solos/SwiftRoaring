@@ -617,7 +617,7 @@ public class RoaringBitmap: Sequence, Equatable, CustomStringConvertible,
     * Returns how many bytes were written which should be
     * SizeInBytes(...).
     */
-    public func serialize(buffer: [Int8]) -> size_t {
+    public func serialize(buffer: [UInt8]) -> size_t {
         let ptr: UnsafeMutablePointer = UnsafeMutablePointer(mutating: buffer)
         return croaring.roaring_bitmap_serialize(self.ptr, ptr)
     }
@@ -626,7 +626,7 @@ public class RoaringBitmap: Sequence, Equatable, CustomStringConvertible,
     * see portableSerialize(...) if you want a format that's
     * compatible with Java and Go implementations
     */
-    public static func deserialize(buffer: [Int8]) -> RoaringBitmap {
+    public static func deserialize(buffer: [UInt8]) -> RoaringBitmap {
         let bufferPtr: UnsafeMutablePointer = UnsafeMutablePointer(mutating: buffer)
         return RoaringBitmap(ptr: croaring.roaring_bitmap_deserialize(bufferPtr)!)
     }
@@ -649,7 +649,7 @@ public class RoaringBitmap: Sequence, Equatable, CustomStringConvertible,
     * overflow. For a safer approach,
     * call portableDeserializeSafe(...).
     */
-    public static func portableDeserialize(buffer: [Int8]) -> RoaringBitmap {
+    public static func portableDeserialize(buffer: [UInt8]) -> RoaringBitmap {
         let bufferPtr: UnsafeMutablePointer = UnsafeMutablePointer(mutating: buffer)
         return RoaringBitmap(ptr: croaring.roaring_bitmap_portable_deserialize(bufferPtr)!)
     }
@@ -661,7 +661,7 @@ public class RoaringBitmap: Sequence, Equatable, CustomStringConvertible,
     * https://github.com/RoaringBitmap/RoaringFormatSpec
     * In case of failure, a nil pointer is returned.
     */
-    public static func portableDeserializeSafe(buffer: [Int8], maxbytes: size_t) -> RoaringBitmap {
+    public static func portableDeserializeSafe(buffer: [UInt8], maxbytes: size_t) -> RoaringBitmap {
         let bufferPtr: UnsafeMutablePointer = UnsafeMutablePointer(mutating: buffer)
         return RoaringBitmap(ptr: croaring.roaring_bitmap_portable_deserialize_safe(bufferPtr, maxbytes)!)
     }
@@ -673,7 +673,7 @@ public class RoaringBitmap: Sequence, Equatable, CustomStringConvertible,
     * the Java and Go versions. See format specification at
     * https://github.com/RoaringBitmap/RoaringFormatSpec
     */
-    public static func portableDeserializeSize(buffer: [Int8], maxbytes: size_t) -> size_t {
+    public static func portableDeserializeSize(buffer: [UInt8], maxbytes: size_t) -> size_t {
         let bufferPtr: UnsafeMutablePointer = UnsafeMutablePointer(mutating: buffer)
         return croaring.roaring_bitmap_portable_deserialize_size(bufferPtr, maxbytes)
     }
@@ -697,7 +697,7 @@ public class RoaringBitmap: Sequence, Equatable, CustomStringConvertible,
     * portableSizeInBytes().  See format specification at
     * https://github.com/RoaringBitmap/RoaringFormatSpec
     */
-    public func portableSerialize(buffer: [Int8]) -> size_t {
+    public func portableSerialize(buffer: [UInt8]) -> size_t {
         let bufferPtr: UnsafeMutablePointer = UnsafeMutablePointer(mutating: buffer)
         return croaring.roaring_bitmap_portable_serialize(self.ptr, bufferPtr)
     }
